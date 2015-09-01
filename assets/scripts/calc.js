@@ -1,3 +1,17 @@
+function handleInput(input) {
+  $('#preview').html($('#preview').html() + input);
+}
+function handleDelete() {
+  $('#preview').html($('#preview').html().slice(0, -1));
+}
+function evaluateResult() {
+  $('#result').html(eval($('#preview').html()));
+}
+
+
+
+
+
 $(document).ready(function() {
   $('#calculator .input').click(function(){
     var input;
@@ -6,9 +20,9 @@ $(document).ready(function() {
     } else if (this.dataset.keyType == "operator") {
       input = this.dataset.operator;
     } else if (this.dataset.keyType == "delete") {
-      $('#preview').html($('#preview').html().slice(0, -1));
+      handleDelete();
     } else if (this.dataset.keyType == "equals") {
-      $('#result').html(eval($('#preview').html()));
+      evaluateResult();
     }
     if (typeof(input) != 'undefined') {
       $('#preview').html($('#preview').html() + input);
@@ -24,7 +38,7 @@ $(document).ready(function() {
 
   ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].forEach(function(digit) {
     $(document).bind('keyup', digit, function() {
-      $('#preview').html($('#preview').html() + digit);
+      handleInput(digit);
     });
   });
 });
